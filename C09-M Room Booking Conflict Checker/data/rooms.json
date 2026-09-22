@@ -1,0 +1,5 @@
+[
+  {"id":"room1","name":"Harbour View","capacity":6},
+  {"id":"room2","name":"Dockside","capacity":12},
+  {"id":"room3","name":"Lighthouse","capacity":20}
+]

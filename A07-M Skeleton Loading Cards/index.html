@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skeleton Loading Cards</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      body { margin: 0; padding: 2rem; background: #f8fafc; font: 16px system-ui, sans-serif; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; max-width: 1000px; margin: auto; }
+      .card { overflow: hidden; background: #fff; border-radius: 12px; box-shadow: 0 3px 12px rgb(15 23 42 / 12%); }
+      .card > :not(.sk) { padding-inline: 1rem; }
+      .card h2 { font-size: 1.15rem; } .card p { color: #475569; }
+      .skeleton-body { padding: 1rem; } .skeleton-body > * { margin-bottom: .7rem; }
+    </style>
+  </head>
+  <body>
+    <main class="grid">
+      <article class="card"><div style="height:150px;background:#334155"></div><small style="display:block;margin:1rem 1rem 0;color:#2563eb">TECH</small><h2>Loaded reference article card</h2><p>Content shown after the CMS has loaded.</p></article>
+      <article class="card"><div class="sk sk--image"></div><div class="skeleton-body"><div class="sk sk--chip"></div><div class="sk sk--line sk--line-lg"></div><div class="sk sk--line sk--line-lg sk--w70"></div><div class="sk sk--line"></div><div class="sk sk--line"></div><div class="sk sk--line sk--w40"></div></div></article>
+      <article class="card"><div class="sk sk--image"></div><div class="skeleton-body"><div class="sk sk--chip"></div><div class="sk sk--line sk--line-lg"></div><div class="sk sk--line sk--line-lg sk--w70"></div><div class="sk sk--line"></div><div class="sk sk--line"></div><div class="sk sk--line sk--w40"></div></div></article>
+    </main>
+  </body>
+</html>
