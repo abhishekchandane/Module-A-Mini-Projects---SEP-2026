@@ -21,7 +21,7 @@
             }
             #headline span {
                 display: inline-block;
-                transition: font-weight 0.1s linear;
+                transition: font-weight 80ms linear;
             }
         </style>
     </head>
@@ -55,7 +55,7 @@
                     if (weight < 100) weight = 100;
                     if (weight > 900) weight = 900;
 
-                    span.style.fontWeight = Math.round(weight);
+                    span.style.fontWeight = String(weight);
                 });
             });
         </script>

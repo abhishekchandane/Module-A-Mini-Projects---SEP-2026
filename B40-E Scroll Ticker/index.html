@@ -41,6 +41,8 @@
             const container = document.getElementById("ticker-container");
             const itemCount = 7;
             const items = [];
+            const spacing = 110;
+            const cycle = itemCount * spacing;
             let currentOffset = 0;
 
             for (let i = 0; i < itemCount; i++) {
@@ -53,16 +55,8 @@
 
             function updateTicker() {
                 items.forEach((item, index) => {
-                    let basePos = (index - (itemCount - 1) / 2) * 100;
-                    let yPos = basePos + currentOffset;
-
-                    let normalizedPos = yPos / 300;
-
-                    if (normalizedPos > 1.2) {
-                        currentOffset -= itemCount * 100;
-                    } else if (normalizedPos < -1.2) {
-                        currentOffset += itemCount * 100;
-                    }
+                    const rawPos = index * spacing + currentOffset + cycle / 2;
+                    const yPos = ((rawPos % cycle) + cycle) % cycle - cycle / 2;
 
                     let progress = Math.max(-1, Math.min(1, yPos / 200));
                     let absProgress = Math.abs(progress);
@@ -79,9 +73,10 @@
             }
 
             window.addEventListener("wheel", (e) => {
+                e.preventDefault();
                 currentOffset -= e.deltaY * 0.5;
                 updateTicker();
-            });
+            }, { passive: false });
 
             updateTicker();
         </script>

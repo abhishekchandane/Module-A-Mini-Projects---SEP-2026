@@ -1,7 +1,22 @@
 <?php
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) !== '/book') {
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$method = $_SERVER['REQUEST_METHOD'];
+$rooms = json_decode(file_get_contents('data/rooms.json'), true);
+$bookings = json_decode(file_get_contents('data/bookings.json'), true);
+
+if ($method === 'GET' && $path === '/rooms') {
+    echo json_encode(['data' => $rooms]);
+    exit;
+}
+
+if ($method === 'GET' && $path === '/bookings') {
+    echo json_encode(['data' => $bookings]);
+    exit;
+}
+
+if ($method !== 'POST' || $path !== '/book') {
     http_response_code(404);
     echo json_encode(['error' => 'Not Found']);
     exit;
@@ -13,9 +28,6 @@ $date = $input['date'] ?? null;
 $start = $input['start'] ?? null;
 $end = $input['end'] ?? null;
 $attendees = (int)($input['attendees'] ?? 0);
-
-$rooms = json_decode(file_get_contents('data/rooms.json'), true);
-$bookings = json_decode(file_get_contents('data/bookings.json'), true);
 
 // 1. Room exists
 $targetRoom = null;

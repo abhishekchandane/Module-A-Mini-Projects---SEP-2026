@@ -11,7 +11,11 @@ body {
 
 .a3d {
     position: relative;
-    width: 17.5em;
+    --card-width: 17.5em;
+    --card-gap: 0.25em;
+    --angle: calc(1turn / var(--n));
+    --radius: calc(((var(--card-width) + var(--card-gap)) / 2) / tan(var(--angle) / 2));
+    width: var(--card-width);
     height: 25em;
     transform-style: preserve-3d;
     animation: rotateCarousel 20s infinite linear;
@@ -27,10 +31,7 @@ body {
     border-radius: 1.5em;
     overflow: hidden;
 
-    --angle: calc(1turn / var(--n));
-    --r: calc((17.5em / 2) / tan(var(--angle) / 2));
-
-    transform: rotateY(calc(var(--i) * var(--angle))) translateZ(var(--r));
+    transform: rotateY(calc(var(--i) * var(--angle))) translateZ(var(--radius));
 }
 
 .card img {

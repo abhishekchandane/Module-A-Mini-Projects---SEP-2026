@@ -14,7 +14,7 @@ WHERE
 GROUP BY 
     m.id, m.movie_title
 HAVING 
-    total_revenue > 500
+    SUM(b.seats * s.price_per_seat) > 500
 ORDER BY 
     total_revenue DESC,
     m.movie_title ASC;

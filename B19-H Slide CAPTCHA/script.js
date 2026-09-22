@@ -1,5 +1,6 @@
 let isDragging = false;
 let startX = 0;
+let startPieceX = 0;
 let currentX = 0;
 let targetX = 0;
 
@@ -36,13 +37,14 @@ handle.addEventListener("pointerdown", (e) => {
     if (scene.classList.contains("solved")) return;
     isDragging = true;
     startX = e.clientX;
+    startPieceX = currentX;
     handle.setPointerCapture(e.pointerId);
 });
 
 handle.addEventListener("pointermove", (e) => {
     if (!isDragging) return;
     let dx = e.clientX - startX;
-    currentX = Math.max(0, Math.min(dx, 600 - 60));
+    currentX = Math.max(0, Math.min(startPieceX + dx, 600 - 60));
 
     piece.style.transform = `translateX(${currentX}px)`;
     handle.style.transform = `translateX(${currentX}px)`;
