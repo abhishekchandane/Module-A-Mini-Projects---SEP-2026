@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    width: 250px;
+    height: 400px;
+    border-radius: 15px;
+    overflow: hidden;
+    background-position: 0% 0;
+    background-size: cover;
+    transition:
+        transform 0.3s,
+        filter 0.3s,
+        background-position 0.3s;
+    position: relative;
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    transform: translateY(100%);
+    opacity: 0;
+    transition:
+        transform 0.3s,
+        opacity 0.3s;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+}
+
+/* Hover State Logic */
+.container:hover .card {
+    filter: blur(4px);
+    transform: scale(0.9);
+}
+
+.container .card:hover {
+    filter: blur(0);
+    transform: scale(1);
+    background-position: 100% 0;
+}
+
+.card:hover .card-content {
+    transform: translateY(0);
+    opacity: 1;
+}

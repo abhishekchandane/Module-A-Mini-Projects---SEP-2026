@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Scroll Ticker</title>
+        <style>
+            body {
+                margin: 0;
+                height: 100vh;
+                background: #000;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                perspective: 1000px;
+                font-family: sans-serif;
+            }
+            #ticker-container {
+                position: relative;
+                width: 100%;
+                height: 400px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform-style: preserve-3d;
+            }
+            .ticker-item {
+                position: absolute;
+                font-size: 5rem;
+                font-weight: bold;
+                color: #fff;
+                user-select: none;
+                will-change: transform, opacity;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="ticker-container"></div>
+
+        <script>
+            const container = document.getElementById("ticker-container");
+            const itemCount = 7;
+            const items = [];
+            let currentOffset = 0;
+
+            for (let i = 0; i < itemCount; i++) {
+                const div = document.createElement("div");
+                div.className = "ticker-item";
+                div.textContent = "WORLDSKILLS";
+                container.appendChild(div);
+                items.push(div);
+            }
+
+            function updateTicker() {
+                items.forEach((item, index) => {
+                    let basePos = (index - (itemCount - 1) / 2) * 100;
+                    let yPos = basePos + currentOffset;
+
+                    let normalizedPos = yPos / 300;
+
+                    if (normalizedPos > 1.2) {
+                        currentOffset -= itemCount * 100;
+                    } else if (normalizedPos < -1.2) {
+                        currentOffset += itemCount * 100;
+                    }
+
+                    let progress = Math.max(-1, Math.min(1, yPos / 200));
+                    let absProgress = Math.abs(progress);
+
+                    let scale = 1 - absProgress * 0.4;
+                    let rotateX = progress * -45;
+                    let zPos = absProgress * -150;
+                    let opacity = 1 - absProgress;
+
+                    item.style.transform = `translateY(${yPos}px) translateZ(${zPos}px) rotateX(${rotateX}deg) scale(${scale})`;
+                    item.style.opacity = opacity;
+                    item.style.filter = `blur(${absProgress * 4}px)`;
+                });
+            }
+
+            window.addEventListener("wheel", (e) => {
+                currentOffset -= e.deltaY * 0.5;
+                updateTicker();
+            });
+
+            updateTicker();
+        </script>
+    </body>
+</html>

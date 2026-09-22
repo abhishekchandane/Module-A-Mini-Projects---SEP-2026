@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Starter Task 01</title>
+    </head>
+    <body>
+        <div id="time"></div>
+
+        <script>
+            function updateTime() {
+                document.getElementById("time").innerText =
+                    new Date().toLocaleTimeString();
+            }
+            setInterval(updateTime, 1000);
+            updateTime();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Font Hover Effect</title>
+        <style>
+            body {
+                margin: 0;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #fff;
+                overflow: hidden;
+                font-family: sans-serif;
+            }
+            #headline {
+                font-size: 4rem;
+                display: flex;
+                user-select: none;
+            }
+            #headline span {
+                display: inline-block;
+                transition: font-weight 0.1s linear;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="headline">WorldSkills Shanghai</h1>
+
+        <script>
+            const headline = document.getElementById("headline");
+            const text = headline.textContent;
+            headline.innerHTML = "";
+
+            const spans = Array.from(text).map((char) => {
+                const span = document.createElement("span");
+                span.textContent = char === " " ? "\u00A0" : char;
+                headline.appendChild(span);
+                return span;
+            });
+
+            window.addEventListener("mousemove", (e) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                spans.forEach((span) => {
+                    const rect = span.getBoundingClientRect();
+                    const charX = rect.left + rect.width / 2;
+                    const charY = rect.top + rect.height / 2;
+
+                    const distance = Math.hypot(mouseX - charX, mouseY - charY);
+
+                    let weight = 900 - distance * 1.5;
+                    if (weight < 100) weight = 100;
+                    if (weight > 900) weight = 900;
+
+                    span.style.fontWeight = Math.round(weight);
+                });
+            });
+        </script>
+    </body>
+</html>
